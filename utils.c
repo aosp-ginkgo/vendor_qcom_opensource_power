@@ -229,6 +229,7 @@ void interaction(int duration, int num_args, int opt_list[]) {
 }
 
 int interaction_with_handle(int lock_handle, int duration, int num_args, int opt_list[]) {
+#if 0
     if (duration < 0 || num_args < 1 || opt_list[0] == 0) return 0;
 
     if (qcopt_handle) {
@@ -238,11 +239,15 @@ int interaction_with_handle(int lock_handle, int duration, int num_args, int opt
         }
     }
     return lock_handle;
+#else
+    return -1;
+#endif
 }
 
 // this is interaction_with_handle using perf_hint instead of
 // perf_lock_acq
 int perf_hint_enable(int hint_id, int duration) {
+#if 0
     int lock_handle = 0;
 
     if (duration < 0) return 0;
@@ -254,11 +259,15 @@ int perf_hint_enable(int hint_id, int duration) {
         }
     }
     return lock_handle;
+#else
+   return -1;
+#endif
 }
 
 // Same as perf_hint_enable, but with the ability to
 // choose the type
 int perf_hint_enable_with_type(int hint_id, int duration, int type) {
+#if 0
     int lock_handle = 0;
 
     if (qcopt_handle) {
@@ -268,6 +277,9 @@ int perf_hint_enable_with_type(int hint_id, int duration, int type) {
         }
     }
     return lock_handle;
+#else
+    return -1;
+#endif
 }
 
 void release_request(int lock_handle) {
@@ -275,6 +287,7 @@ void release_request(int lock_handle) {
 }
 
 int perform_hint_action(int hint_id, int resource_values[], int num_resources) {
+#if 0
     if (qcopt_handle && perf_lock_acq) {
         /* Acquire an indefinite lock for the requested resources. */
         int lock_handle = perf_lock_acq(0, 0, resource_values, num_resources);
@@ -310,6 +323,7 @@ int perform_hint_action(int hint_id, int resource_values[], int num_resources) {
             return -ENOMEM;
         }
     }
+#endif
     return 0;
 }
 
